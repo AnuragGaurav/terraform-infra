@@ -97,7 +97,7 @@ resource "aws_security_group" "pub-ins-sg" {
     from_port        = ingress.value.ports
     to_port          = ingress.value.ports
     protocol         = ingress.value.protocol
-    cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
+    cidr_blocks      = ["0.0.0.0/0"]
         }
      }
 }
@@ -129,11 +129,11 @@ resource "aws_security_group" "priv-ins-sg" {
 }
 resource "aws_instance" "wireguard-ins" {
   ami = "ami-0851b76e8b1bce90b"
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.priv-ins-sg.id]
   subnet_id = aws_subnet.priv-subnets[0].id
   key_name = "mumbai"
-  associate_public_ip_address = false
+  associate_public_ip_address = true
   tags = {
     Name = "wireguard"
   }
