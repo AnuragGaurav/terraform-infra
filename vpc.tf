@@ -123,7 +123,7 @@ resource "aws_security_group" "priv-ins-sg" {
     from_port        = ingress.value.ports
     to_port          = ingress.value.ports
     protocol         = ingress.value.protocol
-    cidr_blocks      = ["${aws_instance.Bastion.private_ip}/32"]
+    cidr_blocks      = ["${aws_instance.wireguard-server-ins.private_ip}/32"]
         }
      }
 }
